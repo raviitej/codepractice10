@@ -1,13 +1,69 @@
-post http://localhost:3000/login/
+post http://localhost:3005/login/
 Content-Type: application/json
 
 {
-  "username": "christopher",
+  "username": "christopher_phillips",
   "password": "christy@123"
 }
 
 
 ###
 
-get http://localhost:3000/states/
+get http://localhost:3005/states/
+
 Authorization: Bearer 
+
+###
+get http://localhost:3005/states/4/
+Authorization: Bearer 
+
+###
+post http://localhost:3005/districts/
+Authorization: Bearer 
+Content-Type: application/json
+
+{
+  "districtName": "Bagalkot",
+  "stateId": 3,
+  "cases": 2323,
+  "cured": 2000,
+  "active": 315,
+  "deaths": 8
+}
+
+###
+
+get http://localhost:3005/districts/765/
+Authorization: Bearer 
+Content-Type: application/json
+
+{
+  "districtId": 322,
+  "districtName": "Palakkad",
+  "stateId": 17,
+  "cases": 61558,
+  "cured": 59276,
+  "active": 2095,
+  "deaths": 177
+}
+
+###
+delete http://localhost:3005/districts/322/
+Authorization: Bearer 
+
+###
+put http://localhost:3005/districts/765/
+Authorization: Bearer 
+Content-Type: application/json
+
+{
+  "districtName": "Nadia",
+  "stateId": 3,
+  "cases": 9628,
+  "cured": 6524,
+  "active": 3000,
+  "deaths": 104
+}
+
+###
+get http://localhost:3005/states/4/stats/
