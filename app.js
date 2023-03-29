@@ -11,12 +11,13 @@ let db = null;
 const initializeServerAndDbConnection = async () => {
   try {
     db = await open({ filename: dbPath, driver: sqlite3.Database });
-    app.listen(3005, () => {});
+    app.listen(3000, () => {});
   } catch (e) {
     console.log(e.message);
     process.exit(1);
   }
 };
+
 initializeServerAndDbConnection();
 
 //API 1
@@ -39,6 +40,7 @@ app.post("/login/", async (request, response) => {
       const payload = { username: username };
       const jwToken = jwt.sign(payload, "my_secret_token");
       response.status(200);
+      console.log(jwToken);
       response.send({ jwtToken: jwToken });
     }
   }
@@ -46,9 +48,9 @@ app.post("/login/", async (request, response) => {
 
 const authenticateToken = (request, response, next) => {
   let jwToken;
-  const authHeader = request.header["Authorization"];
+  const authHeader = request.headers["authorization"];
   if (authHeader !== undefined) {
-    jwToken = authHeader.split()[1];
+    jwToken = authHeader.split(" ")[1];
   }
   if (jwToken === undefined) {
     response.status(401);
